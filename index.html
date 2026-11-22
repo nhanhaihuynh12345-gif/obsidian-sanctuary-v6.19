@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obsidian Sanctuary - Trạm Trú Ẩn Tâm Lý</title>
+    <meta name="theme-color" content="#030712">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Obsidian">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22112%22%20fill%3D%22%23030712%22/%3E%3Ccircle%20cx%3D%22256%22%20cy%3D%22256%22%20r%3D%22180%22%20fill%3D%22%231e1b4b%22/%3E%3Cpath%20d%3D%22M310%20156a110%20110%200%201%200%2074%20190%2095%2095%200%201%201-74-190z%22%20fill%3D%22%23a5b4fc%22/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22112%22%20fill%3D%22%23030712%22/%3E%3Ccircle%20cx%3D%22256%22%20cy%3D%22256%22%20r%3D%22180%22%20fill%3D%22%231e1b4b%22/%3E%3Cpath%20d%3D%22M310%20156a110%20110%200%201%200%2074%20190%2095%2095%200%201%201-74-190z%22%20fill%3D%22%23a5b4fc%22/%3E%3C/svg%3E">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; color: #f1f5f9; }
+        .obsidian-card { background: rgba(10, 15, 28, 0.92); backdrop-filter: blur(24px); border: 1px solid rgba(129, 140, 248, 0.18); }
+        .obsidian-card-glow { background: rgba(13, 20, 36, 0.95); backdrop-filter: blur(28px); border: 1px solid rgba(129, 140, 248, 0.35); }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="obsidian-card border-b border-indigo-950 relative md:sticky md:top-0 z-50 px-4 md:px-8 py-3 flex flex-wrap justify-between items-center gap-3">
+        <div class="flex items-center space-x-3">
+            <div class="bg-indigo-900 p-2 rounded-2xl text-indigo-200 border border-indigo-500/20">
+                <i class="fa-solid fa-moon text-base"></i>
+            </div>
+            <div>
+                <h1 class="text-xs font-bold tracking-tight text-white flex items-center">
+                    OBSIDIAN SANCTUARY <span class="ml-2 px-2 py-0.5 text-[9px] bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">Không Gian An Toàn</span>
+                </h1>
+                <p class="text-[10px] text-slate-400">Trạm Trú Ẩn Tâm Lý, Lắng Nghe & Đồng Hành Chân Thành</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2">
+            <button id="pwa-install-btn" onclick="triggerPwaInstall()" class="hidden px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-semibold rounded-xl cursor-pointer transition">
+                <i class="fa-solid fa-download mr-1"></i> Tải App
+            </button>
+            <button id="tab-sanctuary-btn" onclick="switchMainTab('sanctuary')" class="px-3 py-1.5 bg-indigo-600 text-white text-[11px] font-semibold rounded-xl cursor-pointer transition">
+                <i class="fa-solid fa-comments mr-1"></i> Trạm Trò Chuyện
+            </button>
+            <button id="tab-stages-btn" onclick="switchMainTab('stages')" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-indigo-500/20 text-[11px] font-semibold rounded-xl cursor-pointer transition">
+                <i class="fa-solid fa-layer-group mr-1"></i> Khung 7 Bước Hỗ Trợ
+            </button>
+        </div>
+    </header>
+
+    <!-- TAB 1: TRẠM TRÒ CHUYỆN (GIỮ NGUYÊN BỐ CỤC VÀ CHỨC NĂNG) -->
+    <main id="tab-sanctuary" class="flex-1 max-w-7xl w-full mx-auto p-6 space-y-6">
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            <!-- Left Column: Trò chuyện (Trên mobile xếp dưới Camera; trên desktop chiếm cột trái) -->
+            <div class="order-2 lg:order-none lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:row-span-2 obsidian-card rounded-3xl p-5 flex flex-col h-[620px] lg:h-[700px]">
+                <div class="flex justify-between items-center pb-3 border-b border-slate-900 mb-4">
+                    <div class="flex items-center space-x-2.5">
+                        <div id="status-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
+                        <h2 class="text-xs font-bold text-white uppercase">Phòng Trò Chuyện & Lắng Nghe Chân Thành</h2>
+                    </div>
+                    <span id="status-text" class="text-[11px] text-indigo-400 italic">Luôn sẵn sàng lắng nghe bạn</span>
+                </div>
+
+                <div id="chat-container" class="flex-1 overflow-y-auto space-y-4 pr-2 text-xs">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-xl bg-indigo-950 border border-indigo-500/30 flex items-center justify-center text-indigo-300 shrink-0">
+                            <i class="fa-solid fa-feather-pointed text-xs"></i>
+                        </div>
+                        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 text-slate-300 max-w-[85%] leading-relaxed">
+                            Chào bạn, mừng bạn ghé qua. Không gian này hoàn toàn riêng tư và không có bất kỳ sự phán xét nào. Nếu hôm nay có chuyện gì làm bạn nặng lòng, bối rối hay ấm ức, cứ thong thả kể cho mình nghe nhé.
+                        </div>
+                    </div>
+                </div>
+
+                <div id="crisis-support-banner" class="hidden mt-3 p-3.5 rounded-2xl bg-rose-950/80 border border-rose-500/60 text-xs text-rose-50 space-y-2 shadow-lg">
+                    <div class="flex items-start justify-between gap-2">
+                        <div class="font-bold text-rose-300 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2 text-rose-400"></i>
+                            <span>Cảnh báo &amp; Điểm tựa an toàn khi có dấu hiệu nguy hiểm</span>
+                        </div>
+                        <button onclick="document.getElementById('crisis-support-banner').classList.add('hidden')" class="text-[10px] px-2 py-0.5 rounded-lg bg-rose-900/80 text-rose-200 hover:text-white cursor-pointer">Thu gọn</button>
+                    </div>
+                    <p id="crisis-context-note" class="text-[11px] leading-relaxed text-rose-100"></p>
+                    <div class="flex flex-wrap items-center gap-2 pt-1 text-[11px]">
+                        <span class="px-2.5 py-1 rounded-xl bg-rose-500/25 border border-rose-400/40 text-rose-200 font-semibold">
+                            Tổng đài 111 (Miễn phí, 24/7)
+                        </span>
+                        <span class="px-2.5 py-1 rounded-xl bg-red-500/20 border border-red-400/35 text-red-200">
+                            Người lớn tin cậy / Thầy cô / Tư vấn học đường
+                        </span>
+                    </div>
+                </div>
+
+                <div class="pt-3 mt-3 border-t border-slate-900 space-y-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-400">
+                        <span>Không lưu tên thật/SĐT • Hỗ trợ tự nhận thức &amp; kỹ năng ứng phó (không chẩn đoán y khoa).</span>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="toggleCrisisBanner('Bạn có thể mở khung cảnh báo &amp; điểm tựa này bất cứ lúc nào để xem gợi ý kết nối hỗ trợ thực tế.')" class="text-rose-400 hover:text-rose-300 underline cursor-pointer">Điểm tựa hỗ trợ (111)</button>
+                            <span>•</span>
+                            <button onclick="clearSessionData()" class="text-slate-300 hover:text-white underline cursor-pointer">Xóa dữ liệu phiên</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-2xl p-2 focus-within:border-indigo-500/60">
+                        <textarea id="chat-input" rows="2" placeholder="Chia sẻ câu chuyện hoặc điều bạn đang băn khoăn..." class="flex-1 bg-transparent text-xs text-slate-200 focus:outline-none resize-none px-2" onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); sendMessage();}"></textarea>
+                        <button onclick="sendMessage()" id="send-btn" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold transition cursor-pointer shrink-0">
+                            <i class="fa-solid fa-paper-plane mr-1.5"></i> Chia Sẻ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera (Hiển thị trên khung chat ở màn hình điện thoại; góc trên bên phải ở desktop) -->
+            <div class="order-1 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 obsidian-card rounded-3xl p-5 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xs font-bold text-white uppercase flex items-center">
+                            <i class="fa-solid fa-video text-indigo-400 mr-2"></i> Góc Nhận Diện Cảm Xúc
+                        </h3>
+                        <button onclick="toggleWebcam()" id="webcam-btn" class="px-3 py-1.5 bg-indigo-600 text-white text-[11px] font-semibold rounded-xl cursor-pointer">
+                            Bật Camera
+                        </button>
+                    </div>
+                    <div class="relative bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 h-32 flex items-center justify-center">
+                        <video id="webcam" autoplay playsinline class="w-full h-full object-cover hidden"></video>
+                        <canvas id="snapshot-canvas" class="hidden"></canvas>
+                        <div id="cam-placeholder" class="text-center text-slate-500 text-xs">
+                            <p>Camera đang tắt (Bảo mật riêng tư tuyệt đối)</p>
+                        </div>
+                    </div>
+                    <div id="ai-model-status" class="text-[10px] text-slate-400 bg-slate-950/50 px-2.5 py-1.5 rounded-xl border border-slate-800/80">
+                        AI Thị giác máy tính: Sẵn sàng tải khi bật quét (xử lý tại máy, không lưu ảnh).
+                    </div>
+                    <div class="flex justify-between items-center text-xs text-slate-300 bg-slate-950/70 p-2.5 rounded-xl border border-slate-800">
+                        <span>Gợi ý tham khảo:</span>
+                        <span id="mask-score-badge" class="font-bold text-indigo-400">Chưa quét</span>
+                    </div>
+                    <button onclick="captureMaskSnapshot()" id="capture-btn" class="w-full py-2 bg-indigo-600/90 hover:bg-indigo-500 text-white font-semibold rounded-xl text-xs hidden cursor-pointer transition">
+                        Quét & Phân Tích Biểu Cảm (AI Tham Khảo)
+                    </button>
+                    <div id="emotion-override-bar" class="hidden space-y-1.5 pt-1">
+                        <div class="text-[10px] text-slate-400">Tự xác nhận hoặc chỉnh lại cho đúng cảm giác thật của bạn:</div>
+                        <div class="grid grid-cols-2 gap-1.5 text-[10px]">
+                            <button onclick="setUserConfirmedEmotion('Đang căng thẳng / Áp lực', 'Mình vừa tự điều chỉnh trạng thái thành đang căng thẳng/áp lực.')" class="py-1.5 px-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-rose-300 cursor-pointer">Căng thẳng / Áp lực</button>
+                            <button onclick="setUserConfirmedEmotion('Trầm lắng / Buồn bã', 'Mình vừa tự điều chỉnh trạng thái thành trầm lắng/buồn bã.')" class="py-1.5 px-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-amber-300 cursor-pointer">Trầm lắng / Buồn bã</button>
+                            <button onclick="setUserConfirmedEmotion('Đang nén cảm xúc', 'Mình vừa tự điều chỉnh trạng thái thành đang nén cảm xúc dù bề ngoài có vẻ bình thường.')" class="py-1.5 px-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-indigo-300 cursor-pointer">Đang nén cảm xúc</button>
+                            <button onclick="setUserConfirmedEmotion('Bình ổn / Thư thái', 'Mình vừa tự xác nhận trạng thái hiện tại là bình ổn/thư thái.')" class="py-1.5 px-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-emerald-300 cursor-pointer">Bình ổn / Thư thái</button>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Dynamic Chart -->
+            <div class="order-3 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-2 obsidian-card-glow rounded-3xl p-5">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xs font-bold text-white flex items-center">
+                            <i class="fa-solid fa-chart-line text-indigo-400 mr-2"></i> Biểu Đồ Tiến Trình Chữa Lành
+                        </h3>
+                        <button onclick="resetDynamicChart()" class="px-2 py-0.5 bg-slate-900 hover:bg-slate-800 text-slate-400 text-[10px] rounded-lg border border-slate-800 cursor-pointer">
+                            Làm mới
+                        </button>
+                    </div>
+                    <div class="bg-slate-950/90 p-2.5 rounded-2xl border border-slate-800/80 h-[190px] relative">
+                        <canvas id="dynamicChart"></canvas>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mt-3 text-center text-xs">
+                        <div class="bg-slate-950/90 p-2 rounded-xl border border-slate-800">
+                            <span class="text-[9px] text-slate-400 block">Mức Thao Túng (MI)</span>
+                            <span id="stat-mi" class="font-bold text-rose-400">--</span>
+                        </div>
+                        <div class="bg-slate-950/90 p-2 rounded-xl border border-slate-800">
+                            <span class="text-[9px] text-slate-400 block">Tự Chủ</span>
+                            <span id="stat-emp" class="font-bold text-emerald-400">--</span>
+                        </div>
+                        <div class="bg-slate-950/90 p-2 rounded-xl border border-slate-800">
+                            <span class="text-[9px] text-slate-400 block">Hỗ Trợ</span>
+                            <span id="stat-sup" class="font-bold text-sky-400">--</span>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <!-- Experiment Log Table -->
+        <section class="obsidian-card rounded-3xl p-6 space-y-4">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+                <div>
+                    <h3 class="text-xs font-bold text-white uppercase">Nhật Ký Theo Dõi Tiến Trình &amp; Dữ Liệu Gốc Phiên</h3>
+                    <p id="evidence-summary-line" class="text-[10px] text-slate-400 mt-0.5">Tự động lưu cục bộ tại trình duyệt (không tên thật/SĐT) • Ghi nhận thời gian, mô hình, độ trễ &amp; rủi ro ngữ cảnh.</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="exportRawEvidenceJSON()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-xs font-semibold rounded-xl text-emerald-300 border border-emerald-500/25 cursor-pointer">
+                        <i class="fa-solid fa-file-code mr-1"></i> Xuất JSON Gốc
+                    </button>
+                    <button onclick="exportDynamicCSV()" class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-xs font-semibold rounded-xl text-slate-300 border border-indigo-500/20 cursor-pointer">
+                        <i class="fa-solid fa-download mr-1.5 text-indigo-400"></i> Xuất CSV
+                    </button>
+                </div>
+            </div>
+            <div class="overflow-x-auto max-h-64">
+                <table class="w-full text-left border-collapse text-xs min-w-[800px]">
+                    <thead class="bg-slate-900 text-indigo-300 border-b border-slate-800">
+                        <tr>
+                            <th class="p-3 text-center w-14">STT</th>
+                            <th class="p-3 w-56">Bước / Khung Hỗ Trợ</th>
+                            <th class="p-3 text-center w-24">Mức Thao Túng (MI)</th>
+                            <th class="p-3 text-center w-24">Tự Chủ (%)</th>
+                            <th class="p-3 text-center w-24">Hỗ Trợ (%)</th>
+                            <th class="p-3">Nội Dung Chia Sẻ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="log-table-body" class="divide-y divide-slate-800 text-slate-300">
+                        <tr><td colspan="6" class="p-4 text-center text-slate-500 italic">Chưa có dữ liệu ghi nhận.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- TAB 2: KHUNG 7 BƯỚC HỖ TRỢ & PHÁT TRIỂN NĂNG LỰC ỨNG PHÓ -->
+    <main id="tab-stages" class="flex-1 max-w-7xl w-full mx-auto p-6 space-y-6 hidden">
+        <section class="obsidian-card-glow rounded-3xl p-6 space-y-4">
+            <div class="flex flex-wrap justify-between items-center gap-3">
+                <div>
+                    <h2 class="text-sm font-bold text-white flex items-center">
+                        <i class="fa-solid fa-chart-area text-indigo-400 mr-2"></i> Biểu Đồ Tham Chiếu: Khung 7 Bước Hỗ Trợ & Rèn Luyện Năng Lực Ứng Phó
+                    </h2>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Khung sư phạm do nhóm đề xuất (không ép tuyến tính cứng nhắc; người dùng có thể tiến/lùi linh hoạt theo hoàn cảnh và tự đánh giá).</p>
+                </div>
+                <button onclick="exportStageReferenceCSV()" class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-xs font-semibold rounded-xl text-slate-200 border border-indigo-500/25 cursor-pointer transition">
+                    <i class="fa-solid fa-file-csv mr-1.5 text-emerald-400"></i> Xuất CSV Khung 7 Bước
+                </button>
+            </div>
+            <div class="bg-slate-950/90 p-4 rounded-2xl border border-slate-800/80 h-[280px] relative">
+                <canvas id="stageReferenceChart"></canvas>
+            </div>
+        </section>
+
+        <section class="obsidian-card rounded-3xl p-6 space-y-4">
+            <div>
+                <h3 class="text-sm font-bold text-white uppercase flex items-center">
+                    <i class="fa-solid fa-table-cells text-indigo-400 mr-2"></i> Bảng Đặc Tả Khung 7 Bước Hỗ Trợ & Chỉ Số Tham Khảo
+                </h3>
+                <p class="text-[11px] text-slate-400 mt-0.5">Các khoảng chỉ số dưới đây là ngưỡng tham chiếu mô hình sư phạm của nhóm, không phải thang chẩn đoán lâm sàng chuẩn hóa.</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs min-w-[900px]">
+                    <thead class="bg-slate-900/95 text-indigo-300 border-b border-slate-800">
+                        <tr>
+                            <th class="p-3.5 w-28">Bước</th>
+                            <th class="p-3.5 w-64">Nội Dung Bước Hỗ Trợ</th>
+                            <th class="p-3.5 text-center w-28">Chỉ Số MI (%)</th>
+                            <th class="p-3.5 text-center w-28">Tự Chủ (%)</th>
+                            <th class="p-3.5 text-center w-28">Hỗ Trợ (%)</th>
+                            <th class="p-3.5">Mục Tiêu Hỗ Trợ Sư Phạm</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stage-reference-tbody" class="divide-y divide-slate-800/80 text-slate-300">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="obsidian-card rounded-3xl p-6 space-y-3">
+                <h3 class="text-xs font-bold text-white uppercase flex items-center">
+                    <i class="fa-solid fa-calculator text-indigo-400 mr-2"></i> Đặc Tả 3 Chỉ Số (MI, Tự Chủ, Hỗ Trợ) &amp; Giới Hạn Khoa Học
+                </h3>
+                <div class="text-xs text-slate-300 space-y-2.5 leading-relaxed">
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                        <strong class="text-rose-400">Chỉ số MI (Mức độ áp lực / hành vi thao túng cảm nhận):</strong> Ước lượng từ mức độ xuất hiện hành vi kiểm soát, đe dọa, cô lập, nói xấu hoặc gây áp lực trong chia sẻ/tự đánh giá của học sinh.
+                    </div>
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                        <strong class="text-emerald-400">Chỉ số Tự chủ (%):</strong> Phản ánh mức độ nhận diện ranh giới cá nhân, khả năng từ chối an toàn và tự điều chỉnh trạng thái của học sinh.
+                    </div>
+                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                        <strong class="text-sky-400">Chỉ số Hỗ trợ (%):</strong> Phản ánh mức độ kết nối và tiếp cận các nguồn hỗ trợ thực tế (gia đình, giáo viên, chuyên viên tư vấn học đường, bạn bè tích cực).
+                    </div>
+                    <p class="text-[11px] text-slate-400 italic">Lưu ý: Ứng dụng là công cụ hỗ trợ tự nhận thức và rèn luyện kỹ năng ứng phó học đường, không chẩn đoán bệnh lý tâm thần hay thay thế chuyên gia tâm lý/y tế.</p>
+                </div>
+            </div>
+
+            <div class="obsidian-card rounded-3xl p-6 space-y-3">
+                <h3 class="text-xs font-bold text-white uppercase flex items-center">
+                    <i class="fa-solid fa-shield-halved text-emerald-400 mr-2"></i> Quyền Riêng Tư, Bảo Mật Dữ Liệu Học Sinh (&lt;18 Tuổi) &amp; Kênh Hỗ Trợ
+                </h3>
+                <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                    <p><strong class="text-white">• Camera &amp; Hình ảnh:</strong> Chỉ bật khi người dùng chủ động bấm cho phép; khung hình xử lý trực tiếp trên trình duyệt để gợi ý biểu cảm tham khảo, không lưu ảnh khuôn mặt và tắt camera ngay sau khi quét.</p>
+                    <p><strong class="text-white">• Tối thiểu hóa thông tin &amp; Tự xóa dữ liệu:</strong> Không yêu cầu họ tên thật, địa chỉ hay số điện thoại; dữ liệu phiên lưu tại trình duyệt hiện tại và có nút <strong>Xóa Dữ Liệu Phiên</strong> bất cứ lúc nào.</p>
+                    <p><strong class="text-white">• Kiến trúc AI &amp; Bảo mật qua Worker:</strong> Luồng trò chuyện và phân tích ngữ cảnh sử dụng mô hình ngôn ngữ lớn qua <strong>Groq</strong> và được bảo mật trung gian qua <strong>Cloudflare Worker</strong> proxy (giấu khóa API phía máy chủ, kiểm soát yêu cầu); phần nhận diện biểu cảm chạy cục bộ bằng <strong>face-api.js</strong>.</p>
+                    <p><strong class="text-white">• Tuân thủ &amp; An toàn:</strong> Thiết kế hướng tới tuân thủ nguyên tắc bảo vệ dữ liệu cá nhân (đối chiếu Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15 và khuyến nghị UNESCO về AI trong giáo dục). Khi có dấu hiệu nguy hiểm/tự gây hại, hãy ưu tiên liên hệ người lớn tin cậy hoặc <strong>Tổng đài Quốc gia Bảo vệ trẻ em 111</strong> (miễn phí 24/7).</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // URL Cloudflare Worker proxy trung gian để giấu API key phía máy chủ và gọi mô hình AI
+        const API_PROXY_URL = "https://api-code.nhanhaihuynh12345.workers.dev";
+        const GROQ_MODEL_CANDIDATES = [
+            "llama-3.3-70b-versatile",
+            "llama-3.1-8b-instant",
+            "qwen/qwen3-32b"
+        ];
+        const GEMINI_MODEL_CANDIDATES = [
+            "gemini-3.8-flash",
+            "gemini-3.8-flash-lite",
+            "gemini-3.5-flash"
+        ];
+        // Khóa lưu nhật ký phiên cục bộ trên trình duyệt (localStorage), không lưu tên thật hay SĐT
+        const STORAGE_KEY = "obsidian_sanctuary_v326_evidence_log";
+
+        // Bảng tham chiếu Khung 7 Bước Hỗ Trợ (dùng cho Luồng 2, biểu đồ tham chiếu và xuất CSV)
+        const STAGE_REFERENCE_DATA = [
+            { stage: "Bước 1", name: "Nhận diện tổn thương & căng thẳng ban đầu", miRange: "80% - 100%", empRange: "0% - 15%", supRange: "0% - 10%", miMid: 90, empMid: 10, supMid: 4, goal: "Cung cấp không gian lắng nghe không phán xét; giúp học sinh gọi tên cảm xúc và mức độ căng thẳng ban đầu." },
+            { stage: "Bước 2", name: "Nhận diện hành vi thao túng, nói xấu, cô lập & bắt nạt", miRange: "65% - 79%", empRange: "16% - 30%", supRange: "11% - 24%", miMid: 72, empMid: 25, supMid: 16, goal: "Phân tích hành vi cụ thể trong bối cảnh học đường; phân biệt góp ý xây dựng với tẩy chay hoặc ngụy biện 'đùa vui'." },
+            { stage: "Bước 3", name: "Nhận thức quyền và ranh giới cá nhân", miRange: "50% - 64%", empRange: "31% - 48%", supRange: "25% - 40%", miMid: 57, empMid: 42, supMid: 31, goal: "Xác lập ranh giới cá nhân và ranh giới trực tuyến; giảm xu hướng tự đổ lỗi hoặc hùa theo áp lực nhóm." },
+            { stage: "Bước 4", name: "Tìm kiếm sự hỗ trợ an toàn", miRange: "36% - 49%", empRange: "49% - 64%", supRange: "41% - 58%", miMid: 42, empMid: 56, supMid: 48, goal: "Kết nối với người lớn đáng tin cậy (cha mẹ, giáo viên chủ nhiệm, chuyên viên tư vấn học đường) hoặc kênh hỗ trợ phù hợp." },
+            { stage: "Bước 5", name: "Rèn luyện kỹ năng ứng phó & tự bảo vệ", miRange: "22% - 35%", empRange: "65% - 78%", supRange: "59% - 74%", miMid: 28, empMid: 71, supMid: 65, goal: "Thực hành kịch bản phản hồi ngắn gọn, giữ bình tĩnh và chủ động bảo vệ bản thân khi đối diện áp lực." },
+            { stage: "Bước 6", name: "Củng cố sự tự tin & năng lực tự chủ", miRange: "10% - 21%", empRange: "79% - 90%", supRange: "75% - 86%", miMid: 15, empMid: 85, supMid: 79, goal: "Duy trì sự chủ động đánh giá tình huống và tự điều chỉnh trạng thái mà không phụ thuộc cảm tính." },
+            { stage: "Bước 7", name: "Lan tỏa hành vi tích cực & hỗ trợ đồng đẳng an toàn", miRange: "0% - 9%", empRange: "91% - 100%", supRange: "87% - 100%", miMid: 4, empMid: 96, supMid: 91, goal: "Thúc đẩy môi trường học đường lành mạnh, hỗ trợ bạn bè đúng cách và biết chuyển tiếp cho người lớn khi có rủi ro cao." }
+        ];
+
+        let dynamicChart = null;
+        let stageReferenceChart = null;
+        let experimentLogs = [];
+        let webcamStream = null;
+
+        function renderStageReferenceTable() {
+            const tbody = document.getElementById('stage-reference-tbody');
+            if (!tbody) return;
+            const stageColors = [
+                "text-rose-400", "text-orange-400", "text-amber-400",
+                "text-yellow-300", "text-emerald-400", "text-sky-400", "text-indigo-300"
+            ];
+            tbody.innerHTML = STAGE_REFERENCE_DATA.map((item, idx) => `
+                <tr class="hover:bg-indigo-950/20 align-top">
+                    <td class="p-3.5 font-bold ${stageColors[idx] || 'text-indigo-300'}">${escapeHtml(item.stage)}</td>
+                    <td class="p-3.5 font-semibold text-white">${escapeHtml(item.name)}</td>
+                    <td class="p-3.5 text-center font-bold text-rose-400">${escapeHtml(item.miRange)}</td>
+                    <td class="p-3.5 text-center font-bold text-emerald-400">${escapeHtml(item.empRange)}</td>
+                    <td class="p-3.5 text-center font-bold text-sky-400">${escapeHtml(item.supRange)}</td>
+                    <td class="p-3.5 leading-relaxed">${escapeHtml(item.goal)}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Bật khung cảnh báo & điểm tựa hỗ trợ (chỉ hiển thị khi có quyết định cảnh báo từ AI hoặc người dùng chủ động mở)
+        function toggleCrisisBanner(contextMessage) {
+            const banner = document.getElementById('crisis-support-banner');
+            const noteEl = document.getElementById('crisis-context-note');
+            if (noteEl) {
+                noteEl.textContent = contextMessage || "Khi cảm thấy bế tắc, mất an toàn hoặc có ý nghĩ tự làm đau mình, bạn không cần gánh một mình. Hãy chia sẻ với cha mẹ, thầy cô, chuyên viên tư vấn học đường hoặc gọi Tổng đài Quốc gia Bảo vệ trẻ em 111 (miễn phí, 24/7).";
+            }
+            if (banner) {
+                banner.classList.remove('hidden');
+                try { banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (_) {}
+            }
+        }
+
+        // Kiểm tra quyết định bật cảnh báo đỏ (high_risk) hoàn toàn do AI đánh giá từ ngữ cảnh, không dùng từ khóa cứng
+        function isContextualHighRisk(parsed, userText = "") {
+            if (!parsed || typeof parsed !== "object") return false;
+            return parsed.high_risk === true || parsed.high_risk === 1 || String(parsed.high_risk).toLowerCase() === "true";
+        }
+
+        // Chuẩn hóa và tính 3 chỉ số tham khảo (MI: áp lực/thao túng cảm nhận, Tự chủ, Hỗ trợ) theo khung tham chiếu
+        function computeTransparentMetrics(text, parsed, forceHighRisk = false) {
+            const stepMatch = (parsed.stage || "").match(/Bước\s*([1-7])/i);
+            const stepNum = stepMatch ? parseInt(stepMatch[1], 10) : 2;
+            const ref = STAGE_REFERENCE_DATA[stepNum - 1] || STAGE_REFERENCE_DATA[1];
+
+            const clamp100 = (v) => Math.max(0, Math.min(100, Math.round(Number(v) || 0)));
+            const hasAiMi = parsed && parsed.mi !== undefined && parsed.mi !== null && parsed.mi !== "" && Number.isFinite(Number(parsed.mi));
+            const hasAiEmp = parsed && parsed.emp !== undefined && parsed.emp !== null && parsed.emp !== "" && Number.isFinite(Number(parsed.emp));
+            const hasAiSup = parsed && parsed.sup !== undefined && parsed.sup !== null && parsed.sup !== "" && Number.isFinite(Number(parsed.sup));
+
+            let mi = hasAiMi ? clamp100(parsed.mi) : ref.miMid;
+            let emp = hasAiEmp ? clamp100(parsed.emp) : ref.empMid;
+            let sup = hasAiSup ? clamp100(parsed.sup) : ref.supMid;
+
+            if (forceHighRisk || isContextualHighRisk(parsed, text)) {
+                mi = Math.max(mi, 88);
+                emp = Math.min(emp, 12);
+                sup = Math.min(sup, 12);
+            }
+
+            return { stepNum, ref, mi, emp, sup };
+        }
+
+        function clearSessionData() {
+            resetDynamicChart();
+            document.getElementById('mask-score-badge').textContent = "Chưa quét";
+            const overrideBar = document.getElementById('emotion-override-bar');
+            if (overrideBar) overrideBar.classList.add('hidden');
+            const banner = document.getElementById('crisis-support-banner');
+            if (banner) banner.classList.add('hidden');
+            document.getElementById('chat-container').innerHTML = `
+                <div class="flex items-start space-x-3">
+                    <div class="w-7 h-7 rounded-xl bg-indigo-950 border border-indigo-500/30 flex items-center justify-center text-indigo-300 shrink-0">
+                        <i class="fa-solid fa-feather-pointed text-xs"></i>
+                    </div>
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 text-slate-300 max-w-[85%] leading-relaxed">
+                        Dữ liệu phiên hiện tại đã được làm mới. Bạn có thể bắt đầu chia sẻ lại từ đầu bất cứ lúc nào.
+                    </div>
+                </div>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderStageReferenceTable();
+            const ctx = document.getElementById('dynamicChart').getContext('2d');
+            dynamicChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        { label: 'Mức Thao Túng (MI)', data: [], borderColor: '#f43f5e', borderWidth: 2, tension: 0.3, pointRadius: 4 },
+                        { label: 'Tự chủ (%)', data: [], borderColor: '#34d399', borderWidth: 2, tension: 0.3, pointRadius: 4 },
+                        { label: 'Hỗ trợ (%)', data: [], borderColor: '#38bdf8', borderWidth: 2, tension: 0.3, pointRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#cbd5e1', font: { size: 9 } } } },
+                    scales: {
+                        x: { ticks: { color: '#64748b' }, grid: { color: 'rgba(30, 41, 59, 0.4)' } },
+                        y: { min: 0, max: 100, ticks: { color: '#64748b' }, grid: { color: 'rgba(30, 41, 59, 0.4)' } }
+                    }
+                }
+            });
+
+            try {
+                const rawSaved = localStorage.getItem(STORAGE_KEY);
+                if (rawSaved) {
+                    const parsedSaved = JSON.parse(rawSaved);
+                    if (Array.isArray(parsedSaved) && parsedSaved.length > 0) {
+                        parsedSaved.forEach((item, idx) => {
+                            const lbl = `Lần ${idx + 1}`;
+                            dynamicChart.data.labels.push(lbl);
+                            dynamicChart.data.datasets[0].data.push(item.mi);
+                            dynamicChart.data.datasets[1].data.push(item.emp);
+                            dynamicChart.data.datasets[2].data.push(item.sup);
+                        });
+                        dynamicChart.update();
+                        const last = parsedSaved[parsedSaved.length - 1];
+                        document.getElementById('stat-mi').textContent = last.mi + "%";
+                        document.getElementById('stat-emp').textContent = last.emp + "%";
+                        document.getElementById('stat-sup').textContent = last.sup + "%";
+                        experimentLogs = parsedSaved;
+                        document.getElementById('log-table-body').innerHTML = experimentLogs.map(log => `
+                            <tr class="hover:bg-indigo-950/20 align-top">
+                                <td class="p-3 text-center font-bold text-indigo-400">${log.stt}</td>
+                                <td class="p-3 font-semibold text-indigo-300">${escapeHtml(log.stage)}</td>
+                                <td class="p-3 text-center text-rose-400 font-bold">${log.mi}%</td>
+                                <td class="p-3 text-center text-emerald-400 font-bold">${log.emp}%</td>
+                                <td class="p-3 text-center text-sky-400 font-bold">${log.sup}%</td>
+                                <td class="p-3 text-slate-300">${escapeHtml(log.text)}</td>
+                            </tr>
+                        `).join('');
+                        saveEvidenceToStorage();
+                    }
+                }
+            } catch (_) {}
+            const stageCtx = document.getElementById('stageReferenceChart').getContext('2d');
+            stageReferenceChart = new Chart(stageCtx, {
+                type: 'line',
+                data: {
+                    labels: STAGE_REFERENCE_DATA.map(d => d.stage),
+                    datasets: [
+                        {
+                            label: 'Chỉ Số Bị Thao Túng (MI %)',
+                            data: STAGE_REFERENCE_DATA.map(d => d.miMid),
+                            borderColor: '#f43f5e',
+                            backgroundColor: 'rgba(244, 63, 94, 0.12)',
+                            fill: true,
+                            borderWidth: 2.5,
+                            tension: 0.35,
+                            pointRadius: 4
+                        },
+                        {
+                            label: 'Chỉ Số Tự Chủ & Tỉnh Thức (%)',
+                            data: STAGE_REFERENCE_DATA.map(d => d.empMid),
+                            borderColor: '#34d399',
+                            backgroundColor: 'rgba(52, 211, 153, 0.08)',
+                            fill: false,
+                            borderWidth: 2.5,
+                            tension: 0.35,
+                            pointRadius: 4
+                        },
+                        {
+                            label: 'Chỉ Số Hỗ Trợ (%)',
+                            data: STAGE_REFERENCE_DATA.map(d => d.supMid),
+                            borderColor: '#38bdf8',
+                            backgroundColor: 'rgba(56, 189, 248, 0.08)',
+                            borderDash: [6, 4],
+                            fill: false,
+                            borderWidth: 2.5,
+                            tension: 0.35,
+                            pointRadius: 4.5,
+                            pointStyle: 'rectRot'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#cbd5e1', font: { size: 11 } } } },
+                    scales: {
+                        x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(30, 41, 59, 0.45)' } },
+                        y: { min: 0, max: 100, ticks: { color: '#94a3b8' }, grid: { color: 'rgba(30, 41, 59, 0.45)' } }
+                    }
+                }
+            });
+        });
+
+        function switchMainTab(tabName) {
+            const sanctuaryEl = document.getElementById('tab-sanctuary');
+            const stagesEl = document.getElementById('tab-stages');
+            const btnSanctuary = document.getElementById('tab-sanctuary-btn');
+            const btnStages = document.getElementById('tab-stages-btn');
+
+            if (tabName === 'stages') {
+                stopWebcam();
+                sanctuaryEl.classList.add('hidden');
+                stagesEl.classList.remove('hidden');
+                btnStages.className = "px-3 py-1.5 bg-indigo-600 text-white text-[11px] font-semibold rounded-xl cursor-pointer transition";
+                btnSanctuary.className = "px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-indigo-500/20 text-[11px] font-semibold rounded-xl cursor-pointer transition";
+                if (stageReferenceChart) stageReferenceChart.resize();
+            } else {
+                stagesEl.classList.add('hidden');
+                sanctuaryEl.classList.remove('hidden');
+                btnSanctuary.className = "px-3 py-1.5 bg-indigo-600 text-white text-[11px] font-semibold rounded-xl cursor-pointer transition";
+                btnStages.className = "px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-indigo-500/20 text-[11px] font-semibold rounded-xl cursor-pointer transition";
+                if (dynamicChart) dynamicChart.resize();
+            }
+        }
+
+        function exportStageReferenceCSV() {
+            let csv = "\uFEFFStage,Stage_Name,MI_Range,Autonomy_Range,Support_Range,Intervention_Goal\n";
+            STAGE_REFERENCE_DATA.forEach(item => {
+                csv += `"${item.stage}","${item.name.replace(/"/g, '""')}","${item.miRange}","${item.empRange}","${item.supRange}","${item.goal.replace(/"/g, '""')}"\n`;
+            });
+            const link = document.createElement("a");
+            link.href = encodeURI("data:text/csv;charset=utf-8," + csv);
+            link.download = "7_stages_reference_model.csv";
+            link.click();
+        }
+
+        function resetDynamicChart() {
+            experimentLogs = [];
+            try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+            const summaryEl = document.getElementById('evidence-summary-line');
+            if (summaryEl) {
+                summaryEl.textContent = "Tự động lưu cục bộ tại trình duyệt (không tên thật/SĐT) • Ghi nhận thời gian, mô hình, độ trễ & rủi ro ngữ cảnh.";
+            }
+            dynamicChart.data.labels = [];
+            dynamicChart.data.datasets.forEach(ds => ds.data = []);
+            dynamicChart.update();
+            document.getElementById('stat-mi').textContent = "--";
+            document.getElementById('stat-emp').textContent = "--";
+            document.getElementById('stat-sup').textContent = "--";
+            document.getElementById('log-table-body').innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500 italic">Chưa có dữ liệu ghi nhận.</td></tr>`;
+        }
+
+        async function requestCameraStream() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                throw new Error("Trình duyệt không hỗ trợ getUserMedia (hãy mở bằng Chrome/Safari).");
+            }
+            const constraintsList = [
+                { video: { facingMode: { ideal: "user" }, width: { ideal: 640 }, height: { ideal: 480 } }, audio: false },
+                { video: { facingMode: "user" }, audio: false },
+                { video: true, audio: false }
+            ];
+            let lastErr = null;
+            for (const c of constraintsList) {
+                try {
+                    return await navigator.mediaDevices.getUserMedia(c);
+                } catch (err) {
+                    lastErr = err;
+                }
+            }
+            throw lastErr || new Error("Không mở được camera");
+        }
+
+        async function toggleWebcam() {
+            const video = document.getElementById('webcam');
+            const placeholder = document.getElementById('cam-placeholder');
+            const btn = document.getElementById('webcam-btn');
+            const captureBtn = document.getElementById('capture-btn');
+
+            if (!webcamStream) {
+                try {
+                    webcamStream = await requestCameraStream();
+                    video.srcObject = webcamStream;
+                    video.setAttribute('playsinline', '');
+                    video.muted = true;
+                    await video.play().catch(() => {});
+                    video.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                    captureBtn.classList.remove('hidden');
+                    btn.textContent = "Tắt Camera";
+                    btn.className = "px-3 py-1.5 bg-rose-600 text-white text-[11px] font-semibold rounded-xl cursor-pointer";
+                } catch (err) {
+                    const reason = err && err.name === "NotAllowedError"
+                        ? "Bạn chưa cấp quyền Camera hoặc trình duyệt đang chặn quyền Camera."
+                        : (err && err.message) || "Không thể truy cập Camera.";
+                    alert(reason + " Nếu đang mở trong app/Zalo, hãy bấm dấu ba chấm (⋮) -> Mở bằng Chrome.");
+                }
+            } else {
+                stopWebcam();
+            }
+        }
+
+        function stopWebcam() {
+            if (webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
+                webcamStream = null;
+            }
+            const video = document.getElementById('webcam');
+            if (video) {
+                video.pause();
+                video.srcObject = null;
+                video.removeAttribute('src');
+                video.classList.add('hidden');
+            }
+            document.getElementById('cam-placeholder').classList.remove('hidden');
+            document.getElementById('capture-btn').classList.add('hidden');
+            document.getElementById('webcam-btn').textContent = "Bật Camera";
+            document.getElementById('webcam-btn').className = "px-3 py-1.5 bg-indigo-600 text-white text-[11px] font-semibold rounded-xl cursor-pointer";
+        }
+
+        let faceModelsLoaded = false;
+
+        async function ensureFaceModels() {
+            if (faceModelsLoaded) return true;
+            const statusEl = document.getElementById('ai-model-status');
+            if (typeof faceapi === 'undefined') {
+                if (statusEl) statusEl.textContent = "Không tải được thư viện face-api.js — dùng chế độ tự chọn trạng thái.";
+                return false;
+            }
+            try {
+                if (statusEl) statusEl.textContent = "Đang tải mô hình AI nhận diện biểu cảm khuôn mặt...";
+                const MODEL_URL = "https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model";
+                await Promise.all([
+                    faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+                    faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL)
+                ]);
+                faceModelsLoaded = true;
+                if (statusEl) statusEl.textContent = "AI Thị giác máy tính đã sẵn sàng (chạy cục bộ trên trình duyệt).";
+                return true;
+            } catch (e) {
+                if (statusEl) statusEl.textContent = "Tải mô hình AI gặp sự cố mạng — bạn vẫn có thể tự chọn trạng thái bên dưới.";
+                return false;
+            }
+        }
+
+        function mapExpressionToReference(expressions) {
+            const entries = Object.entries(expressions).sort((a, b) => b[1] - a[1]);
+            const [topExpr, topScore] = entries[0];
+            const pct = Math.round(topScore * 100);
+
+            const dict = {
+                sad: {
+                    label: `Gợi ý: Nét buồn / trầm (${pct}%)`,
+                    title: "Biểu cảm gợi ý nghiêng về nét buồn / trầm",
+                    desc: "Mô hình nhận diện cơ mặt có xu hướng trùng với nhóm biểu cảm buồn. Tuy nhiên biểu cảm bề mặt chỉ mang tính tham khảo, chưa thay thế cảm nhận thật của bạn."
+                },
+                angry: {
+                    label: `Gợi ý: Căng thẳng / bực bội (${pct}%)`,
+                    title: "Biểu cảm gợi ý nghiêng về căng thẳng / khó chịu",
+                    desc: "Mô hình ghi nhận nét mặt có phần căng hoặc cau lại. Bạn có thể tự điều chỉnh nếu thực tế bạn đang cảm thấy khác."
+                },
+                fearful: {
+                    label: `Gợi ý: Lo âu / dè chừng (${pct}%)`,
+                    title: "Biểu cảm gợi ý nghiêng về lo âu / dè chừng",
+                    desc: "Mô hình phát hiện dấu hiệu biểu cảm dè chừng hoặc bất an. Kết quả chỉ để tham khảo bước đầu."
+                },
+                disgusted: {
+                    label: `Gợi ý: Khó chịu / phản kháng (${pct}%)`,
+                    title: "Biểu cảm gợi ý nghiêng về khó chịu / không thoải mái",
+                    desc: "Mô hình nhận diện nét biểu cảm không thoải mái. Hãy tự xác nhận lại cảm xúc thật của mình nhé."
+                },
+                happy: {
+                    label: `Gợi ý: Vui / thoải mái (${pct}%)`,
+                    title: "Biểu cảm gợi ý nghiêng về vui / thoải mái",
+                    desc: "Mô hình ghi nhận nét mặt tươi hoặc thư giãn. Lưu ý: nụ cười đôi khi cũng có thể là sự che giấu cảm xúc bên trong."
+                },
+                surprised: {
+                    label: `Gợi ý: Bất ngờ / ngỡ ngàng (${pct}%)`,
+                    title: "Biểu cảm gợi ý nghiêng về bất ngờ",
+                    desc: "Mô hình ghi nhận nét ngạc nhiên trên gương mặt. Bạn có thể chọn lại trạng thái nếu không khớp."
+                },
+                neutral: {
+                    label: `Gợi ý: Trung tính / bình thản (${pct}%)`,
+                    title: "Biểu cảm gợi ý ở mức trung tính",
+                    desc: "Gương mặt đang ở trạng thái trung tính. Nếu bạn đang nén cảm xúc hoặc mệt mỏi bên trong, hãy bấm chọn lại ở khung bên dưới."
+                }
+            };
+
+            return dict[topExpr] || dict.neutral;
+        }
+
+        async function captureMaskSnapshot() {
+            if (!webcamStream) return;
+            const video = document.getElementById('webcam');
+            const canvas = document.getElementById('snapshot-canvas');
+            const captureBtn = document.getElementById('capture-btn');
+            const overrideBar = document.getElementById('emotion-override-bar');
+            const container = document.getElementById('chat-container');
+
+            captureBtn.disabled = true;
+            captureBtn.textContent = "Đang phân tích bằng AI...";
+
+            const ready = await ensureFaceModels();
+            let resultInfo = {
+                label: "Chưa nhận diện được khuôn mặt",
+                title: "Không phát hiện khuôn mặt rõ ràng trong khung hình",
+                desc: "Hãy đưa khuôn mặt vào giữa khung hình đủ sáng hoặc dùng các nút tự chọn trạng thái bên dưới."
+            };
+
+            if (ready) {
+                try {
+                    const detection = await faceapi
+                        .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.4 }))
+                        .withFaceExpressions();
+
+                    if (detection && detection.expressions) {
+                        resultInfo = mapExpressionToReference(detection.expressions);
+                    }
+                } catch (err) {
+                    resultInfo = {
+                        label: "Gợi ý tham khảo (Lỗi phân tích)",
+                        title: "Chưa hoàn tất phân tích khung hình",
+                        desc: "Đã xóa khung hình tạm và không lưu trữ. Bạn có thể chọn trực tiếp trạng thái cảm xúc của mình."
+                    };
+                }
+            }
+
+            // Clear temporary canvas and auto-turn off camera right after scanning for privacy
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width || 320, canvas.height || 240);
+            }
+            stopWebcam();
+            captureBtn.disabled = false;
+            captureBtn.textContent = "Quét & Phân Tích Biểu Cảm (AI Tham Khảo)";
+
+            document.getElementById('mask-score-badge').textContent = resultInfo.label;
+            if (overrideBar) overrideBar.classList.remove('hidden');
+
+            container.innerHTML += `
+                <div class="flex items-start space-x-3">
+                    <div class="w-7 h-7 rounded-xl bg-indigo-950 border border-indigo-500/30 flex items-center justify-center text-indigo-300 shrink-0 mt-1">
+                        <i class="fa-solid fa-eye text-xs"></i>
+                    </div>
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 text-slate-300 max-w-[88%] leading-relaxed space-y-2">
+                        <div class="text-indigo-400 text-[11px] font-bold">${escapeHtml(resultInfo.title)} (Chỉ mang tính tham khảo):</div>
+                        <div class="text-slate-200 text-xs leading-6">${escapeHtml(resultInfo.desc)}</div>
+                        <div class="text-[11px] text-slate-400 italic pt-1">Camera đã tự động tắt sau khi quét để bảo vệ riêng tư và không lưu ảnh. Bạn có thể tự xác nhận hoặc chỉnh lại trạng thái ngay ở khung bên phải.</div>
+                    </div>
+                </div>
+            `;
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function setUserConfirmedEmotion(badgeText, noteText) {
+            document.getElementById('mask-score-badge').textContent = "Đã xác nhận: " + badgeText;
+            const input = document.getElementById('chat-input');
+            if (input && !input.value.trim()) {
+                input.value = noteText;
+            }
+        }
+
+        function setPresenceStatus(mode, text) {
+            const dot = document.getElementById('status-dot');
+            const label = document.getElementById('status-text');
+            label.textContent = text;
+            if (mode === 'busy') {
+                dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse";
+                label.className = "text-[11px] text-amber-300 italic";
+            } else if (mode === 'err') {
+                dot.className = "w-2.5 h-2.5 rounded-full bg-rose-400";
+                label.className = "text-[11px] text-rose-300 italic";
+            } else {
+                dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+                label.className = "text-[11px] text-indigo-400 italic";
+            }
+        }
+
+        const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+        // Gửi yêu cầu tới AI qua Worker proxy với cơ chế thử lại và dự phòng giữa các model Groq / Gemini
+        async function queryWithAutoFallback(prompt) {
+            let lastError = null;
+
+            // 1. Thử qua proxy hiện tại theo định dạng Groq (provider: "groq") trước
+            for (const model of GROQ_MODEL_CANDIDATES) {
+                for (let attempt = 1; attempt <= 2; attempt++) {
+                    try {
+                        const res = await fetch(API_PROXY_URL, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                provider: "groq",
+                                model,
+                                messages: [
+                                    { role: "system", content: "Bạn luôn trả về duy nhất một đối tượng JSON hợp lệ, không kèm markdown." },
+                                    { role: "user", content: prompt }
+                                ],
+                                response_format: { type: "json_object" },
+                                temperature: 0.5
+                            })
+                        });
+
+                        const data = await res.json();
+                        if (!res.ok || data.error) {
+                            const msg = data?.error?.message || `HTTP ${res.status}`;
+                            lastError = new Error(msg);
+                            if (res.status === 503 || res.status === 429 || /high demand|overloaded|unavailable|rate limit/i.test(msg)) {
+                                await sleep(1000 * attempt);
+                                continue;
+                            }
+                            break;
+                        }
+
+                        const rawText =
+                            data?.choices?.[0]?.message?.content ||
+                            data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+                            data?.reply ||
+                            data?.message ||
+                            data?.response ||
+                            data?.text ||
+                            "";
+                        const cleanJson = String(rawText).replace(/```json/gi, "").replace(/```/g, "").trim();
+                        let parsedObj = null;
+                        try {
+                            parsedObj = JSON.parse(cleanJson);
+                        } catch (_) {
+                            const match = cleanJson.match(/\{[\s\S]*\}/);
+                            if (match) {
+                                parsedObj = JSON.parse(match[0]);
+                            } else if (cleanJson) {
+                                parsedObj = { reply: cleanJson };
+                            } else {
+                                throw new Error("Phản hồi rỗng từ model");
+                            }
+                        }
+                        if (!parsedObj || typeof parsedObj !== "object") {
+                            throw new Error("Dữ liệu phản hồi không hợp lệ");
+                        }
+                        parsedObj._metaModel = `groq/${model}`;
+                        return parsedObj;
+                    } catch (err) {
+                        lastError = err;
+                        if (!/high demand|overloaded|503|429|rate limit/i.test(err.message)) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // 2. Dự phòng sang định dạng candidates nếu worker cấu hình theo nhánh Gemini
+            for (const model of GEMINI_MODEL_CANDIDATES) {
+                for (let attempt = 1; attempt <= 2; attempt++) {
+                    try {
+                        const res = await fetch(API_PROXY_URL, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                model,
+                                contents: [{ parts: [{ text: prompt }] }],
+                                generationConfig: { responseMimeType: "application/json" }
+                            })
+                        });
+
+                        const data = await res.json();
+                        if (!res.ok || data.error) {
+                            const msg = data?.error?.message || `HTTP ${res.status}`;
+                            lastError = new Error(msg);
+                            if (res.status === 503 || res.status === 429 || /high demand|overloaded|unavailable/i.test(msg)) {
+                                await sleep(1000 * attempt);
+                                continue;
+                            }
+                            throw lastError;
+                        }
+
+                        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                        const cleanJson = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
+                        const parsedObj = JSON.parse(cleanJson);
+                        parsedObj._metaModel = model;
+                        return parsedObj;
+                    } catch (err) {
+                        lastError = err;
+                        if (!/high demand|overloaded|503|429/i.test(err.message)) {
+                            break;
+                        }
+                    }
+                }
+            }
+            throw lastError || new Error("Kết nối tạm gián đoạn");
+        }
+
+        // Xử lý gửi tin nhắn: tách 2 luồng (ưu tiên Luồng 1 tình huống tự hại; không thuộc Luồng 1 thì sang Luồng 2 khung 7 giai đoạn)
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const container = document.getElementById('chat-container');
+            container.innerHTML += `
+                <div class="flex items-start justify-end space-x-3">
+                    <div class="bg-indigo-950/80 border border-indigo-500/30 rounded-2xl p-3.5 text-slate-200 max-w-[85%] leading-relaxed">
+                        ${escapeHtml(text)}
+                    </div>
+                </div>
+            `;
+            input.value = "";
+            container.scrollTop = container.scrollHeight;
+
+            const sendBtn = document.getElementById('send-btn');
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
+            setPresenceStatus('busy', 'Đang lắng nghe và suy ngẫm...');
+
+            const prompt = `Bạn là một người bạn đồng hành tâm lý học đường gần gũi, chân thành, xưng hô "mình - bạn" tự nhiên (tuyệt đối không nhắc tới AI, model, hệ thống hay thuật ngữ kỹ thuật).
+
+TIN NHẮN DUY NHẤT CẦN PHẢN HỒI LÚC NÀY: "${text}"
+
+KIẾN TRÚC 2 LUỒNG TÁCH BIỆT — BẮT BUỘC XỬ LÝ THEO THỨ TỰ ƯU TIÊN:
+- **LUỒNG 1 (ƯU TIÊN SỐ 1 - TÌNH HUỐNG TỰ HẠI):** AI đánh giá ngữ cảnh trước tiên. Nếu tin nhắn rơi vào tình huống tự hại / tự làm tổn thương bản thân hoặc bế tắc nguy hiểm cần ưu tiên xử lý riêng:
+  + Đặt "stream": "luong_1_tu_hai".
+  + Có bật chữ đỏ ("high_risk": true) hay không là do AI tự quyết định dựa trên ngữ cảnh (nếu bật chữ đỏ thì đặt "high_risk": true và viết "risk_note" ngắn gọn gợi ý người lớn tin cậy hoặc Tổng đài 111; nếu AI quyết định không bật chữ đỏ thì đặt "high_risk": false).
+  + Đặt "stage": "Luồng 1: Tình huống tự hại (Ưu tiên)".
+  + Khi "high_risk": true, đặt "mi" cao (85-100), "emp" thấp (0-12), "sup" thấp (0-12).
+- **LUỒNG 2 (KHUNG 7 GIAI ĐOẠN):** Chỉ khi AI đánh giá KHÔNG thuộc Luồng 1 (tình huống tự hại) thì mới chuyển sang Luồng 2:
+  + Đặt "stream": "luong_2_7_giai_doan".
+  + Có bật chữ đỏ ("high_risk": true/false) hay không là do AI tự quyết định theo ngữ cảnh.
+  + Trường "stage" PHẢI chọn CHÍNH XÁC 1 trong 7 bước sau:
+    * "Bước 1: Nhận diện tổn thương & căng thẳng ban đầu"
+    * "Bước 2: Nhận diện hành vi thao túng, nói xấu, cô lập & bắt nạt"
+    * "Bước 3: Nhận thức quyền và ranh giới cá nhân"
+    * "Bước 4: Tìm kiếm sự hỗ trợ an toàn"
+    * "Bước 5: Rèn luyện kỹ năng ứng phó & tự bảo vệ"
+    * "Bước 6: Củng cố sự tự tin & năng lực tự chủ"
+    * "Bước 7: Lan tỏa hành vi tích cực & hỗ trợ đồng đẳng an toàn"
+
+QUY TẮC PHẢN HỒI:
+1. Chỉ bám SIÊU SÁT vào đúng nội dung, nhân vật và tình huống của tin nhắn hiện tại ở trên. Tuyệt đối KHÔNG lôi các chủ đề, cảm xúc hoặc sự kiện của tin nhắn trước vào, và KHÔNG tự vẽ ra hành động gượng gạo hoặc không liên quan trực tiếp.
+2. Nếu người dùng hỏi lựa chọn giữa "lên tiếng/chứng minh" hay "im lặng", phải phân tích thực tế cả hai hướng trong đúng hoàn cảnh đó.
+3. Phần "reply" PHẢI gồm đúng 4 đoạn văn rõ ràng, ngăn cách bằng <br><br>, diễn đạt trọn vẹn từng câu (tổng khoảng 180 - 280 từ, mỗi đoạn khoảng 2 - 4 câu trọn vẹn).
+4. Tuyệt đối KHÔNG đóng vai bác sĩ tâm lý, KHÔNG chẩn đoán bệnh lý y khoa.
+
+Trả về duy nhất JSON hợp lệ:
+{
+  "stream": "luong_1_tu_hai hoặc luong_2_7_giai_doan",
+  "stage": "Luồng 1: Tình huống tự hại (Ưu tiên) hoặc 1 trong 7 bước của Luồng 2",
+  "mi": 50,
+  "emp": 50,
+  "sup": 50,
+  "high_risk": false,
+  "risk_note": "",
+  "reply": "Đoạn 1<br><br>Đoạn 2<br><br>Đoạn 3<br><br>Đoạn 4"
+}`;
+
+            const reqStartMs = performance.now();
+            try {
+                const parsed = await queryWithAutoFallback(prompt);
+                const latencyMs = Math.round(performance.now() - reqStartMs);
+
+                setPresenceStatus('ok', 'Luôn sẵn sàng lắng nghe bạn');
+                const flaggedHighRisk = isContextualHighRisk(parsed, text);
+                const contextualRiskText = (parsed.risk_note && String(parsed.risk_note).trim())
+                    ? String(parsed.risk_note).trim()
+                    : "Có vẻ bạn đang mang nhiều áp lực hoặc cảm giác bế tắc trong chia sẻ vừa rồi. Bạn không cần tự gánh một mình — hãy cân nhắc trò chuyện với người lớn đáng tin cậy (cha mẹ, thầy cô, tư vấn học đường) hoặc gọi Tổng đài Quốc gia Bảo vệ trẻ em 111 (miễn phí, 24/7).";
+
+                if (flaggedHighRisk) {
+                    toggleCrisisBanner(contextualRiskText);
+                }
+
+                function buildHyperContextualReply(userInput, isHighRisk) {
+                    if (isHighRisk) {
+                        return `Mình nghe rõ điều bạn vừa chia sẻ và thấy lúc này bạn đang mang một sức nặng rất lớn khiến lòng muốn buông xuôi mọi thứ.<br><br>` +
+                            `Khi cảm xúc dồn nén quá lâu đến mức muốn dừng lại hoặc tự làm tổn thương mình, sự kiệt sức bạn đang trải qua là thật chứ không hề nhỏ bé.<br><br>` +
+                            `Lúc này bạn không cần tự gánh tất cả một mình — hãy cân nhắc trò chuyện với người lớn tin cậy (cha mẹ, thầy cô, tư vấn học đường) hoặc gọi Tổng đài 111 (miễn phí, 24/7) để có điểm tựa an toàn.<br><br>` +
+                            `Mình vẫn ở đây lắng nghe bạn một cách chân thành, không phán xét và không hối thúc. Nếu muốn, bạn có thể kể thêm điều gì đang đè nặng lên bạn lúc này.`;
+                    }
+
+                    return `Mình đang lắng nghe đúng chia sẻ của bạn và tôn trọng cảm xúc thật mà bạn đang trải qua lúc này.<br><br>` +
+                        `Khi nhìn lại tình huống trước mắt, việc tách bạch giữa cảm xúc nhất thời và diễn biến thực tế sẽ giúp bạn giữ được sự sáng suốt và không tự làm khó mình thêm.<br><br>` +
+                        `Bạn có thể chọn nhịp phản hồi phù hợp với hoàn cảnh hiện tại: giữ khoảng lặng để bình tĩnh lại hoặc trao đổi ngắn gọn, rõ ràng khi thấy sẵn sàng.<br><br>` +
+                        `Không cần phải giải quyết mọi chuyện cùng lúc. Khi nào muốn nói tiếp, mình vẫn ở đây nghe bạn.`;
+                }
+
+                const candidateReply =
+                    parsed.reply ||
+                    parsed.message ||
+                    parsed.content ||
+                    parsed.response ||
+                    parsed.text ||
+                    "";
+
+                const replyMentionsCrisis = !flaggedHighRisk || (typeof candidateReply === "string" && candidateReply.trim().length > 40);
+                const hasValidModelReply = typeof candidateReply === "string" &&
+                    candidateReply.trim() &&
+                    candidateReply.trim().toLowerCase() !== "undefined" &&
+                    (!flaggedHighRisk || replyMentionsCrisis);
+
+                const safeReplyText = hasValidModelReply
+                    ? candidateReply.trim()
+                    : buildHyperContextualReply(text, flaggedHighRisk);
+
+                const isStream1 = String(parsed.stream || "").toLowerCase().includes("luong_1") ||
+                    /luồng\s*1|tình\s*huống\s*tự\s*hại/i.test(String(parsed.stage || ""));
+                const validStages = STAGE_REFERENCE_DATA.map(s => `${s.stage}: ${s.name}`);
+                const rawStage = (parsed.stage && String(parsed.stage).trim() && String(parsed.stage).trim().toLowerCase() !== "undefined")
+                    ? String(parsed.stage).trim()
+                    : "";
+                if (isStream1) {
+                    parsed.stage = rawStage || "Luồng 1: Tình huống tự hại (Ưu tiên)";
+                } else {
+                    const matchedStage = validStages.find(st => st.toLowerCase().includes(rawStage.toLowerCase())) ||
+                        (rawStage ? rawStage : validStages[1]);
+                    parsed.stage = matchedStage;
+                }
+
+                const metrics = computeTransparentMetrics(text, parsed, flaggedHighRisk);
+                const inlineCrisisHtml = flaggedHighRisk ? `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-xl bg-rose-500/20 border border-rose-500/50 flex items-center justify-center text-rose-300 shrink-0 mt-1">
+                            <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+                        </div>
+                        <div class="bg-rose-950/80 border border-rose-500/55 rounded-2xl p-3.5 text-rose-50 max-w-[88%] space-y-1.5">
+                            <div class="text-[11px] font-bold text-rose-300">Cảnh báo rủi ro &amp; Gợi ý hỗ trợ an toàn</div>
+                            <p class="text-xs leading-relaxed text-rose-100">${escapeHtml(contextualRiskText)}</p>
+                            <div class="text-[11px] text-rose-200 pt-0.5 font-medium">
+                                Tổng đài 111 (miễn phí, 24/7) • Người lớn tin cậy / Thầy cô / Chuyên viên tư vấn học đường
+                            </div>
+                        </div>
+                    </div>
+                ` : "";
+                container.innerHTML += `
+                    ${inlineCrisisHtml}
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-xl bg-indigo-950 border border-indigo-500/30 flex items-center justify-center text-indigo-300 shrink-0 mt-1">
+                            <i class="fa-solid fa-feather-pointed text-xs"></i>
+                        </div>
+                        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 text-slate-300 max-w-[88%] leading-relaxed space-y-3">
+                            <div class="text-slate-200 text-xs leading-6">${safeReplyText}</div>
+                            <div class="text-[10px] text-indigo-400 pt-3 border-t border-slate-800 flex flex-wrap justify-between items-center gap-2">
+                                <span><strong>Khung hỗ trợ:</strong> ${escapeHtml(parsed.stage)}</span>
+                                <span>MI: ${metrics.mi}% | Tự chủ: ${metrics.emp}% | Hỗ trợ: ${metrics.sup}% (Tham khảo)</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                updateDashboard(`Lần ${experimentLogs.length + 1}`, parsed.stage, metrics.mi, metrics.emp, metrics.sup, text, {
+                    timestamp: new Date().toISOString(),
+                    modelUsed: parsed._metaModel || "unknown",
+                    latencyMs,
+                    highRisk: flaggedHighRisk,
+                    riskNote: flaggedHighRisk ? contextualRiskText : "",
+                    emotionBadge: document.getElementById('mask-score-badge')?.textContent || "Chưa quét"
+                });
+            } catch (err) {
+                // Khi gọi AI qua Worker gặp lỗi (mạng/proxy/hết lượt model), báo rõ trạng thái kết nối thay vì đánh tráo kết quả AI
+                const errDetail = (err && err.message) ? String(err.message) : "Lỗi kết nối máy chủ AI";
+                setPresenceStatus('err', `Chưa nhận được phản hồi AI (${errDetail})`);
+                const flaggedHighRisk = false;
+                const fallbackStage = "Chưa phân luồng (Lỗi kết nối AI)";
+                const metrics = computeTransparentMetrics(text, { stage: "Bước 2", mi: 0, emp: 0, sup: 0 }, false);
+                const fallbackReply = `Hiện chưa kết nối được tới máy chủ AI để phân tích và phân luồng tin nhắn của bạn.<br><br>` +
+                    `Chi tiết lỗi: <strong>${escapeHtml(errDetail)}</strong>.<br><br>` +
+                    `Bạn hãy kiểm tra lại Cloudflare Worker proxy hoặc thử gửi lại sau ít phút để hệ thống AI đánh giá đúng luồng.<br><br>` +
+                    `Nếu lúc này bạn đang cảm thấy mệt mỏi, căng thẳng hoặc bế tắc, bạn có thể bấm nút <strong>Điểm tựa hỗ trợ (111)</strong> ở phía dưới để xem thông tin hỗ trợ miễn phí 24/7.`;
+                const inlineCrisisHtml = flaggedHighRisk ? `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-xl bg-rose-500/20 border border-rose-500/50 flex items-center justify-center text-rose-300 shrink-0 mt-1">
+                            <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+                        </div>
+                        <div class="bg-rose-950/80 border border-rose-500/55 rounded-2xl p-3.5 text-rose-50 max-w-[88%] space-y-1.5">
+                            <div class="text-[11px] font-bold text-rose-300">Cảnh báo rủi ro &amp; Gợi ý hỗ trợ an toàn</div>
+                            <p class="text-xs leading-relaxed text-rose-100">${escapeHtml(contextualRiskText)}</p>
+                            <div class="text-[11px] text-rose-200 pt-0.5 font-medium">
+                                Tổng đài 111 (miễn phí, 24/7) • Người lớn tin cậy / Thầy cô / Chuyên viên tư vấn học đường
+                            </div>
+                        </div>
+                    </div>
+                ` : "";
+                container.innerHTML += `
+                    ${inlineCrisisHtml}
+                    <div class="flex items-start space-x-3">
+                        <div class="w-7 h-7 rounded-xl bg-indigo-950 border border-indigo-500/30 flex items-center justify-center text-indigo-300 shrink-0 mt-1">
+                            <i class="fa-solid fa-feather-pointed text-xs"></i>
+                        </div>
+                        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 text-slate-300 max-w-[88%] leading-relaxed space-y-3">
+                            <div class="text-slate-200 text-xs leading-6">${fallbackReply}</div>
+                            <div class="text-[10px] text-indigo-400 pt-3 border-t border-slate-800 flex flex-wrap justify-between items-center gap-2">
+                                <span><strong>Khung hỗ trợ:</strong> ${escapeHtml(fallbackStage)}</span>
+                                <span>MI: ${metrics.mi}% | Tự chủ: ${metrics.emp}% | Hỗ trợ: ${metrics.sup}% (Tham khảo)</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                updateDashboard(`Lần ${experimentLogs.length + 1}`, fallbackStage, metrics.mi, metrics.emp, metrics.sup, text, {
+                    timestamp: new Date().toISOString(),
+                    modelUsed: `hyper-contextual-fallback (${err.message || "network"})`,
+                    latencyMs: Math.round(performance.now() - reqStartMs),
+                    highRisk: flaggedHighRisk,
+                    riskNote: flaggedHighRisk ? contextualRiskText : "",
+                    emotionBadge: document.getElementById('mask-score-badge')?.textContent || "Chưa quét"
+                });
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = `<i class="fa-solid fa-paper-plane mr-1.5"></i> Chia Sẻ`;
+                container.scrollTop = container.scrollHeight;
+            }
+        }
+
+        function saveEvidenceToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(experimentLogs));
+            } catch (_) {}
+            const summaryEl = document.getElementById('evidence-summary-line');
+            if (summaryEl) {
+                const avgLatency = experimentLogs.length
+                    ? Math.round(experimentLogs.reduce((acc, item) => acc + (item.latencyMs || 0), 0) / experimentLogs.length)
+                    : 0;
+                summaryEl.textContent = `Đã lưu ${experimentLogs.length} lượt thử nghiệm tại trình duyệt • Độ trễ TB: ${avgLatency} ms • Sẵn sàng xuất CSV/JSON minh chứng.`;
+            }
+        }
+
+        function exportRawEvidenceJSON() {
+            if (experimentLogs.length === 0) return alert("Chưa có dữ liệu phiên để xuất!");
+            const payload = {
+                project: "OBSIDIAN SANCTUARY (v3.26 - Direct Context Fix)",
+                exportedAt: new Date().toISOString(),
+                totalRecords: experimentLogs.length,
+                records: experimentLogs
+            };
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "obsidian_sanctuary_raw_evidence.json";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        // Cập nhật biểu đồ tiến trình, thẻ chỉ số, bảng nhật ký và lưu dữ liệu phiên cục bộ
+        function updateDashboard(label, stage, mi, emp, sup, text, meta = {}) {
+            dynamicChart.data.labels.push(label);
+            dynamicChart.data.datasets[0].data.push(mi);
+            dynamicChart.data.datasets[1].data.push(emp);
+            dynamicChart.data.datasets[2].data.push(sup);
+            dynamicChart.update();
+
+            document.getElementById('stat-mi').textContent = mi + "%";
+            document.getElementById('stat-emp').textContent = emp + "%";
+            document.getElementById('stat-sup').textContent = sup + "%";
+
+            experimentLogs.push({
+                stt: experimentLogs.length + 1,
+                stage,
+                mi,
+                emp,
+                sup,
+                text,
+                timestamp: meta.timestamp || new Date().toISOString(),
+                modelUsed: meta.modelUsed || "",
+                latencyMs: meta.latencyMs || 0,
+                highRisk: Boolean(meta.highRisk),
+                riskNote: meta.riskNote || "",
+                emotionBadge: meta.emotionBadge || "Chưa quét"
+            });
+            saveEvidenceToStorage();
+
+            const tbody = document.getElementById('log-table-body');
+            tbody.innerHTML = experimentLogs.map(log => `
+                <tr class="hover:bg-indigo-950/20 align-top">
+                    <td class="p-3 text-center font-bold text-indigo-400">${log.stt}</td>
+                    <td class="p-3 font-semibold text-indigo-300">${escapeHtml(log.stage)}</td>
+                    <td class="p-3 text-center text-rose-400 font-bold">${log.mi}%</td>
+                    <td class="p-3 text-center text-emerald-400 font-bold">${log.emp}%</td>
+                    <td class="p-3 text-center text-sky-400 font-bold">${log.sup}%</td>
+                    <td class="p-3 text-slate-300">${escapeHtml(log.text)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function exportDynamicCSV() {
+            if (experimentLogs.length === 0) return alert("Chưa có dữ liệu!");
+            let csv = "\uFEFFSTT,Timestamp,Model,Latency_ms,High_Risk,Stage,MI_Percent,Self_Empowerment,Community_Support,Emotion_Badge,Content\n";
+            experimentLogs.forEach(l => {
+                csv += `${l.stt},"${l.timestamp || ''}","${l.modelUsed || ''}",${l.latencyMs || 0},${Boolean(l.highRisk)},"${l.stage}",${l.mi},${l.emp},${l.sup},"${String(l.emotionBadge || '').replace(/"/g, '""')}","${l.text.replace(/"/g, '""')}"\n`;
+            });
+            const link = document.createElement("a");
+            link.href = encodeURI("data:text/csv;charset=utf-8," + csv);
+            link.download = "student_experiment_log.csv";
+            link.click();
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+    </script>
+
+    <script>
+        let deferredPrompt = null;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installBtn = document.getElementById('pwa-install-btn');
+            if (installBtn) installBtn.classList.remove('hidden');
+        });
+
+        async function triggerPwaInstall() {
+            if (!deferredPrompt) {
+                alert("Để cài app lên điện thoại:\n- Android (Chrome): bấm dấu ba chấm (⋮) góc trên -> chọn 'Cài đặt ứng dụng' hoặc 'Thêm vào Màn hình chính'.\n- iPhone/iPad (Safari): bấm nút Chia sẻ -> chọn 'Thêm vào MH chính'.\nLưu ý: Hãy mở bằng Chrome/Safari thay vì trình duyệt nhúng trong app.");
+                return;
+            }
+            deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            document.getElementById('pwa-install-btn').classList.add('hidden');
+        }
+
+        window.addEventListener('appinstalled', () => {
+            const installBtn = document.getElementById('pwa-install-btn');
+            if (installBtn) installBtn.classList.add('hidden');
+        });
+
+        if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(() => {});
+            });
+        }
+    </script>
+</body>
+</html>
